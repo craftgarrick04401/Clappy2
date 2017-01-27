@@ -19,7 +19,7 @@
 /**
  *
  *
- * @author ExampleAuthor
+ * @author Garrick Craft
  */
 class SwitchRobotControls: public Command {
 public:
