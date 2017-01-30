@@ -60,17 +60,18 @@ void Robot::TeleopInit() {
 	// teleop starts running. If you want the autonomous to
 	// continue until interrupted by another command, remove
 	// these lines or comment it out.
+	//SmartDashboard::PutData(driveTrain)
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
 }
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
-	SmartDashboard::PutNumber("Top Left Motor", RobotMap::driveTrainTopRight->Get());
-	SmartDashboard::PutNumber("Top Right Motor", RobotMap::driveTrainTopRight->Get());
-	SmartDashboard::PutNumber("Bottom Left Motor", RobotMap::driveTrainTopRight->Get());
-	SmartDashboard::PutNumber("Bottom Right Motor", RobotMap::driveTrainTopRight->Get());
-	SmartDashboard::PutNumber("Center Motor", RobotMap::driveTrainTopRight->Get());
+	SmartDashboard::PutNumber("Top Left Motor", RobotMap::driveTrainTopLeft->Get());
+	//SmartDashboard::PutNumber("Top Right Motor", RobotMap::driveTrainTopRight->Get());
+	//SmartDashboard::PutNumber("Bottom Left Motor", RobotMap::driveTrainTopRight->Get());
+	//SmartDashboard::PutNumber("Bottom Right Motor", RobotMap::driveTrainTopRight->Get());
+	//SmartDashboard::PutNumber("Center Motor", RobotMap::driveTrainTopRight->Get());
 	SmartDashboard::PutString("Robot Direction", (driveTrain->GetDirection() == static_cast<int>(Direction::FORWARD)) ? "Forward" : "Reverse");
 }
 
