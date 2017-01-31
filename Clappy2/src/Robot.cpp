@@ -68,10 +68,10 @@ void Robot::TeleopInit() {
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
 	SmartDashboard::PutNumber("Top Left Motor", RobotMap::driveTrainTopLeft->Get());
-	//SmartDashboard::PutNumber("Top Right Motor", RobotMap::driveTrainTopRight->Get());
-	//SmartDashboard::PutNumber("Bottom Left Motor", RobotMap::driveTrainTopRight->Get());
-	//SmartDashboard::PutNumber("Bottom Right Motor", RobotMap::driveTrainTopRight->Get());
-	//SmartDashboard::PutNumber("Center Motor", RobotMap::driveTrainTopRight->Get());
+	SmartDashboard::PutNumber("Top Right Motor", RobotMap::driveTrainTopRight->Get());
+	SmartDashboard::PutNumber("Bottom Left Motor", RobotMap::driveTrainTopRight->Get());
+	SmartDashboard::PutNumber("Bottom Right Motor", RobotMap::driveTrainTopRight->Get());
+	SmartDashboard::PutNumber("Center Motor", RobotMap::driveTrainTopRight->Get());
 	SmartDashboard::PutString("Robot Direction", (driveTrain->GetDirection() == static_cast<int>(Direction::FORWARD)) ? "Forward" : "Reverse");
 }
 

@@ -42,24 +42,22 @@ void DriveTeleop::Execute() {
 
 	//Each if statement is to make sure the speed value stays between -1.0 and 1.0.
 
-	if (Robot::driveTrain->GetDirection() == static_cast<int>(Direction::REVERSE))
+	if (Robot::driveTrain->GetDirection() == static_cast<int>(Direction::FORWARD))
 	{
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_LEFT, m_scalar * -((m_Y - m_Z >= 1.0) ? 1.0 : ((m_Y - m_Z <= -1.0) ? -1.0 : m_Y - m_Z)));
-		/*
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_LEFT, m_scalar * ((m_Y - m_Z >= 1.0) ? 1.0 : ((m_Y - m_Z <= -1.0) ? -1.0 : m_Y - m_Z)));
 		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_RIGHT, m_scalar * -((m_Y + m_Z >= 1.0) ? 1.0 : ((m_Y + m_Z <= -1.0) ? -1.0 : m_Y + m_Z)));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_LEFT, m_scalar * -((m_Y - m_Z >= 1.0) ? 1.0 : ((m_Y - m_Z <= -1.0) ? -1.0 : m_Y - m_Z)));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_LEFT, m_scalar * ((m_Y - m_Z >= 1.0) ? 1.0 : ((m_Y - m_Z <= -1.0) ? -1.0 : m_Y - m_Z)));
 		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_RIGHT, m_scalar * -((m_Y + m_Z >= 1.0) ? 1.0 : ((m_Y + m_Z <= -1.0) ? -1.0 : m_Y + m_Z)));
 		Robot::driveTrain->SetMotorSpeed(DriveMotor::CENTER, m_scalar * -((m_X >= 1.0) ? 1.0 : ((m_X <= -1.0) ? -1.0 : m_X)));
-		*/
 
 	}
 	else
 	{
-		//Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_RIGHT, m_scalar * -((m_Y - m_Z >= 1.0) ? 1.0 : ((m_Y - m_Z <= -1.0) ? -1.0 : m_Y - m_Z)));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_LEFT, m_scalar * ((m_Y + m_Z >= 1.0) ? 1.0 : ((m_Y + m_Z <= -1.0) ? -1.0 : m_Y + m_Z)));
-		//Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_RIGHT, m_scalar * -((m_Y - m_Z >= 1.0) ? 1.0 : ((m_Y - m_Z <= -1.0) ? -1.0 : m_Y - m_Z)));
-		//Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_LEFT, m_scalar * -((m_Y + m_Z >= 1.0) ? 1.0 : ((m_Y + m_Z <= -1.0) ? -1.0 : m_Y + m_Z)));
-		//Robot::driveTrain->SetMotorSpeed(DriveMotor::CENTER, m_scalar * ((m_X >= 1.0) ? 1.0 : ((m_X <= -1.0) ? -1.0 : m_X)));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_RIGHT, m_scalar * ((m_Y - m_Z >= 1.0) ? 1.0 : ((m_Y - m_Z <= -1.0) ? -1.0 : m_Y - m_Z)));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_LEFT, m_scalar * -((m_Y + m_Z >= 1.0) ? 1.0 : ((m_Y + m_Z <= -1.0) ? -1.0 : m_Y + m_Z)));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_RIGHT, m_scalar * ((m_Y - m_Z >= 1.0) ? 1.0 : ((m_Y - m_Z <= -1.0) ? -1.0 : m_Y - m_Z)));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_LEFT, m_scalar * -((m_Y + m_Z >= 1.0) ? 1.0 : ((m_Y + m_Z <= -1.0) ? -1.0 : m_Y + m_Z)));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::CENTER, m_scalar * ((m_X >= 1.0) ? 1.0 : ((m_X <= -1.0) ? -1.0 : m_X)));
 
 	}
 }
