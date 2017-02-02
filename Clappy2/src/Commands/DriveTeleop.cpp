@@ -57,10 +57,10 @@ void DriveTeleop::Execute() {
 
 	if (Robot::driveTrain->GetDirection() == static_cast<int>(Direction::FORWARD))
 	{
-		m_topLeft = m_Y - m_Z;			//tested theoretical
-		m_topRight = -(m_Y + m_Z);
-		m_bottomLeft = m_Y - m_Z;		//same as topLeft
-		m_bottomRight = -(m_Y + m_Z);
+		m_topLeft = -(m_Y + m_Z);
+		m_topRight = m_Y - m_Z;
+		m_bottomLeft = -(m_Y + m_Z);
+		m_bottomRight = m_Y - m_Z;
 		m_center = m_X;
 
 		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_LEFT, calculateSpeed(m_scalar, m_topLeft));
@@ -72,10 +72,10 @@ void DriveTeleop::Execute() {
 	}
 	else
 	{
-		m_topLeft = -(m_Y + m_Z);		//tested theoretical
-		m_topRight = m_Y - m_Z;
-		m_bottomLeft = -(m_Y + m_Z);	//same as bottomLeft
-		m_bottomRight = m_Y - m_Z;
+		m_topLeft = m_Y - m_Z;
+		m_topRight = -(m_Y + m_Z);
+		m_bottomLeft = m_Y - m_Z;
+		m_bottomRight = -(m_Y + m_Z);
 		m_center = -m_X;
 
 		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_LEFT, calculateSpeed(m_scalar, m_topLeft));
