@@ -40,16 +40,10 @@ void DriveTeleop::Initialize() {
 	Robot::driveTrain->StopMoving();
 }
 
-inline double calculateForwardSpeed(double scalar, double x)
+inline double calculateSpeed(double scalar, double input)
 {
-	return (2 / (1 + (1 / std::exp(10 * scalar * x)))) - 1;
+	return (2 * scalar / (1 + std::exp(5 * input))) - scalar;
 }
-
-inline double calculateReverseSpeed(double scalar, double x)
-{
-	return 1 - (2 / (1 + (1 / std::exp(10 * scalar * x))));
-}
-
 
 // Called repeatedly when this Command is scheduled to run
 void DriveTeleop::Execute() {
@@ -57,38 +51,38 @@ void DriveTeleop::Execute() {
 	m_scalar = -0.5 * joystick->GetRawAxis(3) + 0.5;
 	m_X = joystick->GetRawAxis(0);
 	m_Y = joystick->GetRawAxis(1);
-	m_Z = joystick->GetRawAxis(2);
+	m_Z = -joystick->GetRawAxis(2);
 
 	//Each in-line if statement is to make sure the speed value stays between -1.0 and 1.0.
 
 	if (Robot::driveTrain->GetDirection() == static_cast<int>(Direction::FORWARD))
 	{
-		m_topLeft = m_Y - m_Z;
+		m_topLeft = m_Y - m_Z;			//tested theoretical
 		m_topRight = -(m_Y + m_Z);
-		m_bottomLeft = m_Y - m_Z;
+		m_bottomLeft = m_Y - m_Z;		//same as topLeft
 		m_bottomRight = -(m_Y + m_Z);
-		m_center = -m_X;
+		m_center = m_X;
 
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_LEFT, calculateForwardSpeed(m_scalar, m_topLeft));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_RIGHT, calculateForwardSpeed(m_scalar, m_topRight));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_LEFT, calculateForwardSpeed(m_scalar, m_bottomLeft));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_RIGHT, calculateForwardSpeed(m_scalar, m_bottomRight));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::CENTER, calculateForwardSpeed(m_scalar, m_center));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_LEFT, calculateSpeed(m_scalar, m_topLeft));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_RIGHT, calculateSpeed(m_scalar, m_topRight));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_LEFT, calculateSpeed(m_scalar, m_bottomLeft));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_RIGHT, calculateSpeed(m_scalar, m_bottomRight));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::CENTER, calculateSpeed(m_scalar, m_center));
 
 	}
 	else
 	{
-		m_topLeft = -(m_Y + m_Z);
+		m_topLeft = -(m_Y + m_Z);		//tested theoretical
 		m_topRight = m_Y - m_Z;
-		m_bottomLeft = -(m_Y + m_Z);
+		m_bottomLeft = -(m_Y + m_Z);	//same as bottomLeft
 		m_bottomRight = m_Y - m_Z;
-		m_center = m_X;
+		m_center = -m_X;
 
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_LEFT, calculateReverseSpeed(m_scalar, m_topLeft));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_RIGHT, calculateReverseSpeed(m_scalar, m_topRight));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_LEFT, calculateReverseSpeed(m_scalar, m_bottomLeft));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_RIGHT, calculateReverseSpeed(m_scalar, m_bottomRight));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::CENTER, calculateReverseSpeed(m_scalar, m_center));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_LEFT, calculateSpeed(m_scalar, m_topLeft));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_RIGHT, calculateSpeed(m_scalar, m_topRight));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_LEFT, calculateSpeed(m_scalar, m_bottomLeft));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_RIGHT, calculateSpeed(m_scalar, m_bottomRight));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::CENTER, calculateSpeed(m_scalar, m_center));
 
 	}
 }
