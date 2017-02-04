@@ -93,6 +93,11 @@ void DriveTrain::ChangeDirection()
 		m_direction = Direction::FORWARD;
 }
 
+void DriveTrain::SetDirection(Direction direction)
+{
+	m_direction = direction;
+}
+
 int DriveTrain::GetDirection()
 {
 	return static_cast<int>(m_direction);
