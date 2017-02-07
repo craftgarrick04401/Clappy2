@@ -13,7 +13,7 @@ public:
 	void End();
 	void Interrupted();
 private:
-	std::shared_ptr<Joystick> joystick2;
+	std::shared_ptr<Joystick> gearStick;
 };
 
 #endif  // ControlGearArm_H

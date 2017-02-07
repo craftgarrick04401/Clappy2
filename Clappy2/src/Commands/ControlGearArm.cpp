@@ -4,7 +4,7 @@ ControlGearArm::ControlGearArm() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::gearArm.get());
-	joystick2 = Robot::oi->getJoystick2();
+	gearStick = Robot::oi->getGearStick();
 }
 
 // Called just before this Command runs the first time
@@ -14,7 +14,7 @@ void ControlGearArm::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ControlGearArm::Execute() {
-	Robot::gearArm->ControlMotor(joystick2->GetY() * 0.25);
+	Robot::gearArm->ControlMotor(gearStick->GetY() * 0.25);
 }
 
 // Make this return true when this Command no longer needs to run execute()
