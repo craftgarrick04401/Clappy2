@@ -3,6 +3,7 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include <string>
 
 enum class PCMStatus
 {
@@ -25,6 +26,8 @@ public:
 	void SetGearPCM(PCMStatus status);
 
 	bool GetPCMStatus();
+
+	std::string GetPCMStatusS();
 
 	void StartCompressor();
 

@@ -26,6 +26,14 @@ bool GearPCM::GetPCMStatus()
 	return solenoid->Get();
 }
 
+std::string GearPCM::GetPCMStatusS()
+{
+	if (solenoid->Get() == static_cast<bool>(PCMStatus::OPENED))
+		return "Opened";
+	else
+		return "Closed";
+}
+
 void GearPCM::StartCompressor()
 {
 	compressor->Start();

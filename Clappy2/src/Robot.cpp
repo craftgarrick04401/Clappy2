@@ -79,8 +79,9 @@ void Robot::TeleopPeriodic() {
 	SmartDashboard::PutNumber("Bottom Left Motor", RobotMap::driveTrainTopRight->Get());
 	SmartDashboard::PutNumber("Bottom Right Motor", RobotMap::driveTrainTopRight->Get());
 	SmartDashboard::PutNumber("Center Motor", RobotMap::driveTrainTopRight->Get());
-	SmartDashboard::PutString("Robot Direction", (driveTrain->GetDirection() == static_cast<int>(Direction::FORWARD)) ? "Forward" : "Reverse");
-	SmartDashboard::PutString("GearPCM Status", (gearPCM->GetPCMStatus() == static_cast<bool>(PCMStatus::OPENED)) ? "Opened" : "Closed");
+	SmartDashboard::PutString("Robot Direction", driveTrain->GetDirectionS());
+	SmartDashboard::PutString("GearPCM Status", gearPCM->GetPCMStatusS());
+	SmartDashboard::PutString("GearArm", gearArm->GetPositionS());
 }
 
 void Robot::TestPeriodic() {

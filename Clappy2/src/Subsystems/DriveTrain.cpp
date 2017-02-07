@@ -103,6 +103,14 @@ int DriveTrain::GetDirection()
 	return static_cast<int>(m_direction);
 }
 
+std::string DriveTrain::GetDirectionS()
+{
+	if (m_direction == Direction::FORWARD)
+		return "Forward";
+	else
+		return "Reverse";
+}
+
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 

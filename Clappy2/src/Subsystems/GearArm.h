@@ -3,19 +3,40 @@
 
 #include <Commands/Subsystem.h>
 #include "WPILib.h"
+#include <string>
+
+enum class Position
+{
+	NOT_INITIALIZED,
+	GROUND,
+	RAMP,
+	HOOK
+};
 
 class GearArm : public Subsystem {
 private:
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
 
 	std::shared_ptr<SpeedController> motor;
 	std::shared_ptr<Encoder> encoder;
-	//std::shared_ptr<Limit> switch;
+	std::shared_ptr<AnalogTrigger> homeSwitch;
+	Position m_position;
 
 public:
 	GearArm();
 	void InitDefaultCommand();
+
+	void Zero();
+
+	void MoveTo(Position position);
+
+	void ControlMotor(double speed);
+
+	bool GetHomeSwitch();
+
+	int GetPosition();
+
+	std::string GetPositionS();
+
 };
 
 #endif  // GearArm_H

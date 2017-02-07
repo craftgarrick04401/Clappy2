@@ -37,7 +37,7 @@ DriveTeleop::DriveTeleop(): Command() {
 
 // Called just before this Command runs the first time
 void DriveTeleop::Initialize() {
-	Robot::driveTrain->StopMoving();
+	//Robot::driveTrain->StopMoving();
 }
 
 inline double calculateSpeed(double scalar, double input)
