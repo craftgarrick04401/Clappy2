@@ -16,12 +16,12 @@ void GearPCM::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void GearPCM::SetGearArms(ArmStatus status)
+void GearPCM::SetGearPCM(PCMStatus status)
 {
 	solenoid->Set(static_cast<bool>(status));
 }
 
-bool GearPCM::GetArmStatus()
+bool GearPCM::GetPCMStatus()
 {
 	return solenoid->Get();
 }

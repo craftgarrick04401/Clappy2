@@ -4,7 +4,7 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
-enum class ArmStatus
+enum class PCMStatus
 {
 	OPENED,
 	CLOSED
@@ -22,9 +22,9 @@ public:
 	GearPCM();
 	void InitDefaultCommand();
 
-	void SetGearArms(ArmStatus status);
+	void SetGearPCM(PCMStatus status);
 
-	bool GetArmStatus();
+	bool GetPCMStatus();
 
 	void StartCompressor();
 

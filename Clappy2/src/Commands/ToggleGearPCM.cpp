@@ -17,10 +17,10 @@ void ToggleGearPCM::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void ToggleGearPCM::Execute() {
 
-	if (Robot::gearPCM->GetArmStatus() == static_cast<bool>(ArmStatus::OPENED))
-		Robot::gearPCM->SetGearArms(ArmStatus::CLOSED);
+	if (Robot::gearPCM->GetPCMStatus() == static_cast<bool>(PCMStatus::OPENED))
+		Robot::gearPCM->SetGearPCM(PCMStatus::CLOSED);
 	else
-		Robot::gearPCM->SetGearArms(ArmStatus::OPENED);
+		Robot::gearPCM->SetGearPCM(PCMStatus::OPENED);
 
 	m_done = true;
 
