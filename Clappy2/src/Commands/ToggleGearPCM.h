@@ -1,13 +1,13 @@
-#ifndef ToggleGearArms_H
-#define ToggleGearArms_H
+#ifndef ToggleGearPCM_H
+#define ToggleGearPCM_H
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
 
-class ToggleGearArms : public Command {
+class ToggleGearPCM : public Command {
 public:
-	ToggleGearArms();
+	ToggleGearPCM();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -17,4 +17,4 @@ private:
 	bool m_done;
 };
 
-#endif  // ToggleGearArms_H
+#endif  // ToggleGearPCM_H

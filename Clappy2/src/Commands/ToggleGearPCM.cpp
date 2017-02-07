@@ -1,7 +1,8 @@
-#include "ToggleGearArms.h"
+#include "ToggleGearPCM.h"
+
 #include "../Subsystems/GearPCM.h"
 
-ToggleGearArms::ToggleGearArms() {
+ToggleGearPCM::ToggleGearPCM() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::gearPCM.get());
@@ -9,12 +10,12 @@ ToggleGearArms::ToggleGearArms() {
 }
 
 // Called just before this Command runs the first time
-void ToggleGearArms::Initialize() {
+void ToggleGearPCM::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ToggleGearArms::Execute() {
+void ToggleGearPCM::Execute() {
 
 	if (Robot::gearPCM->GetArmStatus() == static_cast<bool>(ArmStatus::OPENED))
 		Robot::gearPCM->SetGearArms(ArmStatus::CLOSED);
@@ -26,17 +27,17 @@ void ToggleGearArms::Execute() {
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ToggleGearArms::IsFinished() {
+bool ToggleGearPCM::IsFinished() {
 	return m_done;
 }
 
 // Called once after isFinished returns true
-void ToggleGearArms::End() {
+void ToggleGearPCM::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ToggleGearArms::Interrupted() {
+void ToggleGearPCM::Interrupted() {
 
 }
