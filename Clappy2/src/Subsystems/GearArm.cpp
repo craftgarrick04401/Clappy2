@@ -79,25 +79,25 @@ void GearArm::MoveTo(Position position)
 
 inline bool GearArm::Ground()
 {
-	return (encoder->GetDistance() <= 0.0) ? true : false;
+	return encoder->GetDistance() <= 0.0;
 }
 
 inline bool GearArm::Ramp()
 {
-	return (encoder->GetDistance() <= 46.0 && encoder->GetDistance() >= 44.0) ? true : false;
+	return encoder->GetDistance() <= 46.0 && encoder->GetDistance() >= 44.0;
 }
 
 inline bool GearArm::Hook()
 {
-	return (encoder->GetDistance() >= 90.0) ? true : false;
+	return encoder->GetDistance() >= 90.0;
 }
 
 inline bool GearArm::BetweenGroundAndRamp()
 {
-	return (encoder->GetDistance() < 44.0 && encoder->GetDistance() > 0.0) ? true : false;
+	return encoder->GetDistance() < 44.0 && encoder->GetDistance() > 0.0;
 }
 
 inline bool GearArm::BetweenRampAndHook()
 {
-	return (encoder->GetDistance() < 90.0 && encoder->GetDistance() > 46.0) ? true : false;
+	return encoder->GetDistance() < 90.0 && encoder->GetDistance() > 46.0;
 }
