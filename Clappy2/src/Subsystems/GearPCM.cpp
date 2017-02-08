@@ -3,15 +3,15 @@
 
 GearPCM::GearPCM() : Subsystem("GearPCM") {
 
-	compressor = RobotMap::gearPCMCompressor;
-	solenoid = RobotMap::gearPCMSolenoid;
+	//compressor = RobotMap::gearPCMCompressor;
+	//solenoid = RobotMap::gearPCMSolenoid;
 
 }
 
 void GearPCM::InitDefaultCommand() {
 
 }
-
+/*
 void GearPCM::SetGearPCM(PCMStatus status)
 {
 	solenoid->Set(static_cast<bool>(status));
@@ -39,3 +39,4 @@ void GearPCM::StopCompressor()
 {
 	compressor->Stop();
 }
+*/

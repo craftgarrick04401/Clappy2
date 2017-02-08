@@ -9,7 +9,7 @@ GearArm::GearArm() : Subsystem("GearArm") {
 	homeSwitch = RobotMap::gearArmSwitch;
 
 	motor->Set(0.0);
-	encoder->SetDistancePerPulse(360.0);
+	encoder->SetDistancePerPulse(360.0 / 497.0);
 }
 
 void GearArm::InitDefaultCommand() {

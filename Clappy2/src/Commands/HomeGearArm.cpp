@@ -17,11 +17,12 @@ void HomeGearArm::Initialize() {
 
 
 void HomeGearArm::Execute() {
-
+	/*
 	while (!Robot::gearArm->GetHomeSwitch())
 	{
 		Robot::gearArm->ControlMotor(0.3);
 	}
+	*/
 	Robot::gearArm->Zero();
 	m_done = true;
 }

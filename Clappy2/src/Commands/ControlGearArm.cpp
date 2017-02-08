@@ -12,7 +12,7 @@ void ControlGearArm::Initialize() {
 }
 
 void ControlGearArm::Execute() {
-	Robot::gearArm->ControlMotor(gearStick->GetY() * 0.25);
+	Robot::gearArm->ControlMotor(gearStick->GetY() * 0.2);
 }
 
 bool ControlGearArm::IsFinished() {

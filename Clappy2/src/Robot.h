@@ -18,7 +18,7 @@ public:
 	LiveWindow *lw = LiveWindow::GetInstance();
 
     static std::shared_ptr<DriveTrain> driveTrain;
-    static std::shared_ptr<GearPCM> gearPCM;
+    //static std::shared_ptr<GearPCM> gearPCM;
     static std::shared_ptr<GearArm> gearArm;
 
 	virtual void RobotInit();

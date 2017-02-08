@@ -1,7 +1,7 @@
 #include "Robot.h"
 
 std::shared_ptr<DriveTrain> Robot::driveTrain;
-std::shared_ptr<GearPCM> Robot::gearPCM;
+//std::shared_ptr<GearPCM> Robot::gearPCM;
 std::shared_ptr<GearArm> Robot::gearArm;
 std::unique_ptr<OI> Robot::oi;
 
@@ -9,7 +9,7 @@ void Robot::RobotInit() {
 	RobotMap::init();
 
     driveTrain.reset(new DriveTrain());
-    gearPCM.reset(new GearPCM());
+    //gearPCM.reset(new GearPCM());
     gearArm.reset(new GearArm());
 	oi.reset(new OI());
 
@@ -40,7 +40,7 @@ void Robot::TeleopInit() {
 		autonomousCommand->Cancel();
 
 	driveTrain->SetDirection(Direction::FORWARD);
-	gearPCM->StartCompressor();
+	//gearPCM->StartCompressor();
 
 }
 
@@ -53,8 +53,10 @@ void Robot::TeleopPeriodic() {
 	SmartDashboard::PutNumber("Bottom Right Motor", RobotMap::driveTrainTopRight->Get());
 	SmartDashboard::PutNumber("Center Motor", RobotMap::driveTrainTopRight->Get());
 	SmartDashboard::PutString("Robot Direction", driveTrain->GetDirectionS());
-	SmartDashboard::PutString("GearPCM Status", gearPCM->GetPCMStatusS());
+	//SmartDashboard::PutString("GearPCM Status", gearPCM->GetPCMStatusS());
 	SmartDashboard::PutString("GearArm", gearArm->GetPositionS());
+	SmartDashboard::PutNumber("Encoder Position", RobotMap::gearArmEncoder->GetDistance());
+
 
 }
 

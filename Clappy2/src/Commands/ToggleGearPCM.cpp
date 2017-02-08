@@ -5,7 +5,7 @@
 ToggleGearPCM::ToggleGearPCM() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(Robot::gearPCM.get());
+	//Requires(Robot::gearPCM.get());
 	m_done = false;
 }
 
@@ -16,12 +16,12 @@ void ToggleGearPCM::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ToggleGearPCM::Execute() {
-
+/*
 	if (Robot::gearPCM->GetPCMStatus() == static_cast<bool>(PCMStatus::OPENED))
 		Robot::gearPCM->SetGearPCM(PCMStatus::CLOSED);
 	else
 		Robot::gearPCM->SetGearPCM(PCMStatus::OPENED);
-
+*/
 	m_done = true;
 
 }
