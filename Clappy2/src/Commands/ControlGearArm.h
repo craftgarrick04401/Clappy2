@@ -21,4 +21,4 @@ private:
 	std::shared_ptr<Joystick> gearStick;
 };
 
-#endif  // ControlGearArm_H
+#endif

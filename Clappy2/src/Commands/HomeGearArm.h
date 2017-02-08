@@ -21,4 +21,4 @@ private:
 	bool m_done;
 };
 
-#endif  // HomeGearArm_H
+#endif

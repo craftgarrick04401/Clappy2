@@ -19,8 +19,6 @@ enum class PCMStatus
 
 class GearPCM : public Subsystem {
 private:
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
 
 	std::shared_ptr<Compressor> compressor;
 	std::shared_ptr<Solenoid> solenoid;
@@ -40,4 +38,4 @@ public:
 	void StopCompressor();
 };
 
-#endif  // GearPCM_H
+#endif

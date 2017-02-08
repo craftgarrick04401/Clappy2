@@ -49,4 +49,4 @@ public:
 
 };
 
-#endif  // GearArm_H
+#endif
