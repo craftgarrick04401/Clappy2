@@ -4,6 +4,11 @@
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
+/**
+ *
+ *
+ * @author Garrick Craft
+ */
 class ControlGearArm : public Command {
 public:
 	ControlGearArm();

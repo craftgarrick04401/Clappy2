@@ -5,6 +5,12 @@
 #include "WPILib.h"
 #include <string>
 
+/**
+ *
+ *
+ * @author Garrick Craft
+ */
+
 enum class PCMStatus
 {
 	OPENED,
