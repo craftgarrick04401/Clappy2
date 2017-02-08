@@ -7,7 +7,6 @@
 
 enum class Position
 {
-	NOT_INITIALIZED,
 	GROUND,
 	RAMP,
 	HOOK
@@ -19,7 +18,12 @@ private:
 	std::shared_ptr<SpeedController> motor;
 	std::shared_ptr<Encoder> encoder;
 	std::shared_ptr<AnalogTrigger> homeSwitch;
-	Position m_position;
+
+	inline bool Ground();
+	inline bool Ramp();
+	inline bool Hook();
+	inline bool BetweenGroundAndRamp();
+	inline bool BetweenRampAndHook();
 
 public:
 	GearArm();

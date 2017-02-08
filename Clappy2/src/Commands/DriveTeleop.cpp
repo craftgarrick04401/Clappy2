@@ -24,12 +24,6 @@ DriveTeleop::DriveTeleop(): Command() {
 	m_Y = 0.0;
 	m_Z = 0.0;
 	m_scalar = 0.0;
-	m_topRight = 0.0;
-	m_topLeft = 0.0;
-	m_bottomRight = 0.0;
-	m_bottomLeft = 0.0;
-	m_center = 0.0;
-
 
 	driveStick = Robot::oi->getDriveStick();
 }
@@ -40,12 +34,6 @@ void DriveTeleop::Initialize() {
 	//Robot::driveTrain->StopMoving();
 }
 
-inline double calculateSpeed(double scalar, double input)
-{
-	return (2 * scalar / (1 + std::exp(5 * input))) - scalar;
-}
-
-// Called repeatedly when this Command is scheduled to run
 void DriveTeleop::Execute() {
 
 	m_scalar = -0.5 * driveStick->GetRawAxis(3) + 0.5;
@@ -53,36 +41,22 @@ void DriveTeleop::Execute() {
 	m_Y = driveStick->GetRawAxis(1);
 	m_Z = -driveStick->GetRawAxis(2);
 
-	//Each in-line if statement is to make sure the speed value stays between -1.0 and 1.0.
-
 	if (Robot::driveTrain->GetDirection() == static_cast<int>(Direction::FORWARD))
 	{
-		m_topLeft = -(m_Y + m_Z);
-		m_topRight = m_Y - m_Z;
-		m_bottomLeft = -(m_Y + m_Z);
-		m_bottomRight = m_Y - m_Z;
-		m_center = m_X;
-
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_LEFT, calculateSpeed(m_scalar, m_topLeft));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_RIGHT, calculateSpeed(m_scalar, m_topRight));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_LEFT, calculateSpeed(m_scalar, m_bottomLeft));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_RIGHT, calculateSpeed(m_scalar, m_bottomRight));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::CENTER, calculateSpeed(m_scalar, m_center));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_LEFT, DriveTeleop::CalculateSpeed(m_scalar, DriveTeleop::Left()));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_RIGHT, DriveTeleop::CalculateSpeed(m_scalar, DriveTeleop::Right()));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_LEFT, DriveTeleop::CalculateSpeed(m_scalar, DriveTeleop::Left()));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_RIGHT, DriveTeleop::CalculateSpeed(m_scalar, DriveTeleop::Right()));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::CENTER, DriveTeleop::CalculateSpeed(m_scalar, m_X));
 
 	}
 	else
 	{
-		m_topLeft = m_Y - m_Z;
-		m_topRight = -(m_Y + m_Z);
-		m_bottomLeft = m_Y - m_Z;
-		m_bottomRight = -(m_Y + m_Z);
-		m_center = -m_X;
-
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_LEFT, calculateSpeed(m_scalar, m_topLeft));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_RIGHT, calculateSpeed(m_scalar, m_topRight));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_LEFT, calculateSpeed(m_scalar, m_bottomLeft));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_RIGHT, calculateSpeed(m_scalar, m_bottomRight));
-		Robot::driveTrain->SetMotorSpeed(DriveMotor::CENTER, calculateSpeed(m_scalar, m_center));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_LEFT, DriveTeleop::CalculateSpeed(m_scalar, DriveTeleop::Right()));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::TOP_RIGHT, DriveTeleop::CalculateSpeed(m_scalar, DriveTeleop::Left()));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_LEFT, DriveTeleop::CalculateSpeed(m_scalar, DriveTeleop::Right()));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::BOTTOM_RIGHT, DriveTeleop::CalculateSpeed(m_scalar, DriveTeleop::Left()));
+		Robot::driveTrain->SetMotorSpeed(DriveMotor::CENTER, DriveTeleop::CalculateSpeed(m_scalar, -m_X));
 
 	}
 }
@@ -101,4 +75,19 @@ void DriveTeleop::End() {
 // subsystems is scheduled to run
 void DriveTeleop::Interrupted() {
 	Robot::driveTrain->StopMoving();
+}
+
+inline double DriveTeleop::CalculateSpeed(double scalar, double input)
+{
+	return (2 * scalar / (1 + std::exp(5 * input))) - scalar;
+}
+
+inline double DriveTeleop::Left()
+{
+	return -(m_Y + m_Z);
+}
+
+inline double DriveTeleop::Right()
+{
+	return m_Y - m_Z;
 }

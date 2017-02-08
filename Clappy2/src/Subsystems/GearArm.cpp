@@ -7,7 +7,6 @@ GearArm::GearArm() : Subsystem("GearArm") {
 	motor = RobotMap::gearArmMotor;
 	encoder = RobotMap::gearArmEncoder;
 	homeSwitch = RobotMap::gearArmSwitch;
-	m_position = Position::NOT_INITIALIZED;
 
 	motor->Set(0.0);
 	encoder->SetDistancePerPulse(360.0);
@@ -20,7 +19,6 @@ void GearArm::InitDefaultCommand() {
 void GearArm::Zero()
 {
 	encoder->Reset();
-	m_position = Position::GROUND;
 }
 
 void GearArm::ControlMotor(double speed)
@@ -33,24 +31,20 @@ bool GearArm::GetHomeSwitch()
 	return homeSwitch->GetTriggerState();
 }
 
-int GearArm::GetPosition()
-{
-	return static_cast<int>(m_position);
-}
-
 std::string GearArm::GetPositionS()
 {
-	switch (m_position)
-	{
-	case Position::NOT_INITIALIZED:
-		return "Not Initialized";
-	case Position::GROUND:
+	if (GearArm::Ground())
 		return "Ground";
-	case Position::RAMP:
+	else if (GearArm::Ramp())
 		return "Ramp";
-	default:
+	else if (GearArm::Hook())
 		return "Hook";
-	}
+	else if (GearArm::BetweenGroundAndRamp())
+		return "Between Ground and Ramp";
+	else if (GearArm::BetweenRampAndHook())
+		return "Between Ramp and Hook";
+	else
+		return "Not Initialized";
 }
 
 void GearArm::MoveTo(Position position)
@@ -58,29 +52,52 @@ void GearArm::MoveTo(Position position)
 	switch (position)
 	{
 	case Position::GROUND:
-	{
-		while (encoder->GetDistance() > 0.0)
+		while (!GearArm::Ground())
 			motor->Set(0.3);
-		m_position = Position::GROUND;
+		motor->Set(0.0);
 		break;
-	}
 	case Position::RAMP:
-	{
-		while (encoder->GetDistance() > 46.0)
-			motor->Set(0.3);
-		while (encoder->GetDistance() < 44.0)
-			motor->Set(-0.3);
-		m_position = Position::RAMP;
+		if (GearArm::Hook() || GearArm::BetweenRampAndHook())
+		{
+			while(!GearArm::Ramp())
+				motor->Set(0.3);
+		}
+		else
+		{
+			while(!GearArm::Ramp())
+				motor->Set(-3.0);
+		}
+		motor->Set(0.0);
 		break;
-	}
 	case Position::HOOK:
-	{
-		while (encoder->GetDistance() < 90.0)
+		while (!GearArm::Hook())
 			motor->Set(-0.3);
-		m_position = Position::HOOK;
+		motor->Set(0.0);
 		break;
 	}
-	default:
-		break;
-	}
+}
+
+inline bool GearArm::Ground()
+{
+	return (encoder->GetDistance() <= 0.0) ? true : false;
+}
+
+inline bool GearArm::Ramp()
+{
+	return (encoder->GetDistance() <= 46.0 && encoder->GetDistance() >= 44.0) ? true : false;
+}
+
+inline bool GearArm::Hook()
+{
+	return (encoder->GetDistance() >= 90.0) ? true : false;
+}
+
+inline bool GearArm::BetweenGroundAndRamp()
+{
+	return (encoder->GetDistance() < 44.0 && encoder->GetDistance() > 0.0) ? true : false;
+}
+
+inline bool GearArm::BetweenRampAndHook()
+{
+	return (encoder->GetDistance() < 90.0 && encoder->GetDistance() > 46.0) ? true : false;
 }
