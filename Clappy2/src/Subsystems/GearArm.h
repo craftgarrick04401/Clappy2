@@ -25,27 +25,33 @@ private:
 	std::shared_ptr<Encoder> encoder;
 	std::shared_ptr<AnalogTrigger> homeSwitch;
 
+	inline bool EncoderP();
+	inline bool MotorP();
+	inline bool HomeSwitchP();
+
 	inline bool Ground();
 	inline bool Ramp();
 	inline bool Hook();
 	inline bool BetweenGroundAndRamp();
 	inline bool BetweenRampAndHook();
+	bool Position(double position);
+	double CvtPosition(double position);
 
 public:
+
 	GearArm();
+
 	void InitDefaultCommand();
 
 	void Zero();
 
-	void MoveTo(Position position);
+	void MoveTo(double position);
 
 	void ControlMotor(double speed);
 
 	bool GetHomeSwitch();
 
-	int GetPosition();
-
-	std::string GetPositionS();
+	double GetDegreesD();
 
 };
 

@@ -20,8 +20,11 @@ enum class PCMStatus
 class GearPCM : public Subsystem {
 private:
 
-	//std::shared_ptr<Compressor> compressor;
-	//std::shared_ptr<Solenoid> solenoid;
+	std::shared_ptr<Compressor> compressor;
+	std::shared_ptr<Solenoid> solenoid;
+
+	inline bool SolenoidP();
+	inline bool CompressorP();
 
 public:
 	GearPCM();

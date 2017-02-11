@@ -7,10 +7,10 @@ std::shared_ptr<SpeedController> RobotMap::driveTrainTopRight;
 std::shared_ptr<SpeedController> RobotMap::driveTrainBottomLeft;
 std::shared_ptr<SpeedController> RobotMap::driveTrainBottomRight;
 std::shared_ptr<SpeedController> RobotMap::driveTrainCenter;
-/*
+
 std::shared_ptr<Compressor> RobotMap::gearPCMCompressor;
 std::shared_ptr<Solenoid> RobotMap::gearPCMSolenoid;
-*/
+
 std::shared_ptr<SpeedController> RobotMap::gearArmMotor;
 std::shared_ptr<Encoder> RobotMap::gearArmEncoder;
 std::shared_ptr<AnalogTrigger> RobotMap::gearArmSwitch;
@@ -35,13 +35,13 @@ void RobotMap::init() {
     lw->AddActuator("DriveTrain", "Center", std::static_pointer_cast<TalonSRX>(driveTrainCenter));
 
 
-/*
+
     gearPCMCompressor.reset(new Compressor());
     lw->AddActuator("GearPCM", "Compressor", std::static_pointer_cast<Compressor>(gearPCMCompressor));
 
     gearPCMSolenoid.reset(new Solenoid(0));
     lw->AddActuator("GearPCM", "Solenoid", std::static_pointer_cast<Solenoid>(gearPCMSolenoid));
-*/
+
 
 
     gearArmMotor.reset(new TalonSRX(5));

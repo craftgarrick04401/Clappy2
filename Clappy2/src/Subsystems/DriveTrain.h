@@ -53,6 +53,8 @@ public:
 
 	std::string GetDirectionS();
 
+	double GetMotorD(DriveMotor motor);
+
 };
 
 #endif

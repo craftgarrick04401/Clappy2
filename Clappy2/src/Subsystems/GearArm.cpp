@@ -8,8 +8,11 @@ GearArm::GearArm() : Subsystem("GearArm") {
 	encoder = RobotMap::gearArmEncoder;
 	homeSwitch = RobotMap::gearArmSwitch;
 
-	motor->Set(0.0);
-	encoder->SetDistancePerPulse(360.0 / 497.0);
+	if (EncoderP())
+		encoder->SetDistancePerPulse(360.0 / 497.0);
+
+	ControlMotor(0.0);
+
 }
 
 void GearArm::InitDefaultCommand() {
@@ -18,86 +21,80 @@ void GearArm::InitDefaultCommand() {
 
 void GearArm::Zero()
 {
-	encoder->Reset();
+	if (EncoderP())
+		encoder->Reset();
 }
 
 void GearArm::ControlMotor(double speed)
 {
-	motor->Set(speed);
+	if (MotorP())
+		motor->Set(speed);
 }
 
 bool GearArm::GetHomeSwitch()
 {
-	return homeSwitch->GetTriggerState();
-}
-
-std::string GearArm::GetPositionS()
-{
-	if (GearArm::Ground())
-		return "Ground";
-	else if (GearArm::Ramp())
-		return "Ramp";
-	else if (GearArm::Hook())
-		return "Hook";
-	else if (GearArm::BetweenGroundAndRamp())
-		return "Between Ground and Ramp";
-	else if (GearArm::BetweenRampAndHook())
-		return "Between Ramp and Hook";
+	if (HomeSwitchP())
+		return homeSwitch->GetTriggerState();
 	else
-		return "Not Initialized";
+		return false;
 }
 
-void GearArm::MoveTo(Position position)
+double GearArm::GetDegreesD()
 {
-	switch (position)
+	if (EncoderP())
+		return encoder->GetDistance();
+	else
+		return static_cast<double>(RobotError::POINTER_IS_NULL);
+}
+
+bool GearArm::Position(double position)
+{
+	if (EncoderP())
+		return CvtPosition(encoder->GetDistance()) > position - 2.0 && CvtPosition(encoder->GetDistance()) < position + 2.0;
+	else
+		return false;
+}
+
+void GearArm::MoveTo(double position)
+{
+	if (EncoderP())
 	{
-	case Position::GROUND:
-		while (!GearArm::Ground())
-			motor->Set(0.3);
-		motor->Set(0.0);
-		break;
-	case Position::RAMP:
-		if (GearArm::Hook() || GearArm::BetweenRampAndHook())
+		if (CvtPosition(encoder->GetDistance()) < position)
 		{
-			while(!GearArm::Ramp())
-				motor->Set(0.3);
+			while (!Position(position))
+				ControlMotor(3.0);
+			ControlMotor(0.0);
 		}
 		else
 		{
-			while(!GearArm::Ramp())
-				motor->Set(-3.0);
+			while (!Position(position))
+				ControlMotor(-3.0);
+			ControlMotor(0.0);
 		}
-		motor->Set(0.0);
-		break;
-	case Position::HOOK:
-		while (!GearArm::Hook())
-			motor->Set(-0.3);
-		motor->Set(0.0);
-		break;
 	}
 }
 
-inline bool GearArm::Ground()
+double GearArm::CvtPosition(double position)
 {
-	return encoder->GetDistance() <= 0.0;
+	if (position < 0.0)
+		return (position + 360.0 < 0.0) ? CvtPosition(position + 360.0) : position + 360.0;
+	else if (position > 360.0)
+		return (position - 360.0 > 360.0) ? CvtPosition(position - 360.0) : position - 360.0;
+	else
+		return position;
 }
 
-inline bool GearArm::Ramp()
+inline bool GearArm::EncoderP()
 {
-	return encoder->GetDistance() <= 46.0 && encoder->GetDistance() >= 44.0;
+	return encoder != nullptr;
 }
 
-inline bool GearArm::Hook()
+inline bool GearArm::MotorP()
 {
-	return encoder->GetDistance() >= 90.0;
+	return motor != nullptr;
 }
 
-inline bool GearArm::BetweenGroundAndRamp()
+inline bool GearArm::HomeSwitchP()
 {
-	return encoder->GetDistance() < 44.0 && encoder->GetDistance() > 0.0;
-}
-
-inline bool GearArm::BetweenRampAndHook()
-{
-	return encoder->GetDistance() < 90.0 && encoder->GetDistance() > 46.0;
+	return homeSwitch != nullptr;
 }
