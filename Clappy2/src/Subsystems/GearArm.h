@@ -23,7 +23,7 @@ private:
 
 	std::shared_ptr<SpeedController> motor;
 	std::shared_ptr<Encoder> encoder;
-	std::shared_ptr<AnalogTrigger> homeSwitch;
+	std::shared_ptr<DigitalInput> homeSwitch;
 
 	inline bool EncoderP();
 	inline bool MotorP();
@@ -34,8 +34,6 @@ private:
 	inline bool Hook();
 	inline bool BetweenGroundAndRamp();
 	inline bool BetweenRampAndHook();
-	bool Position(double position);
-	double CvtPosition(double position);
 
 public:
 
@@ -45,6 +43,8 @@ public:
 
 	void Zero();
 
+	void Home();
+
 	void MoveTo(double position);
 
 	void ControlMotor(double speed);
@@ -52,6 +52,8 @@ public:
 	bool GetHomeSwitch();
 
 	double GetDegreesD();
+
+	bool Position(double position);
 
 };
 

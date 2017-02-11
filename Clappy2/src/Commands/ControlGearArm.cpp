@@ -3,7 +3,9 @@
 ControlGearArm::ControlGearArm() {
 
 	Requires(Robot::gearArm.get());
-	gearStick = Robot::oi->getGearStick();
+
+	m_position = 0.0;
+	m_done = false;
 
 }
 
@@ -12,11 +14,13 @@ void ControlGearArm::Initialize() {
 }
 
 void ControlGearArm::Execute() {
-	Robot::gearArm->ControlMotor(gearStick->GetY() * 0.2);
+	m_position = SmartDashboard::GetNumber("gy", 0.0);
+	Robot::gearArm->MoveTo(m_position);
+	m_done = true;
 }
 
 bool ControlGearArm::IsFinished() {
-	return false;
+	return m_done;
 }
 
 void ControlGearArm::End() {

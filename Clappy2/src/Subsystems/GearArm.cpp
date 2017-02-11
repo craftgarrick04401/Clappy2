@@ -16,7 +16,7 @@ GearArm::GearArm() : Subsystem("GearArm") {
 }
 
 void GearArm::InitDefaultCommand() {
-	SetDefaultCommand(new ControlGearArm());
+	//SetDefaultCommand(new ControlGearArm());
 }
 
 void GearArm::Zero()
@@ -34,7 +34,7 @@ void GearArm::ControlMotor(double speed)
 bool GearArm::GetHomeSwitch()
 {
 	if (HomeSwitchP())
-		return homeSwitch->GetTriggerState();
+		return homeSwitch->Get();
 	else
 		return false;
 }
@@ -50,7 +50,7 @@ double GearArm::GetDegreesD()
 bool GearArm::Position(double position)
 {
 	if (EncoderP())
-		return CvtPosition(encoder->GetDistance()) > position - 2.0 && CvtPosition(encoder->GetDistance()) < position + 2.0;
+		return encoder->GetDistance() > position - 2.0 && encoder->GetDistance() < position + 2.0;
 	else
 		return false;
 }
@@ -59,29 +59,12 @@ void GearArm::MoveTo(double position)
 {
 	if (EncoderP())
 	{
-		if (CvtPosition(encoder->GetDistance()) < position)
-		{
-			while (!Position(position))
-				ControlMotor(3.0);
-			ControlMotor(0.0);
-		}
-		else
-		{
-			while (!Position(position))
-				ControlMotor(-3.0);
-			ControlMotor(0.0);
-		}
+		while (encoder->GetDistance() < position - 2.0)
+			ControlMotor(-0.2);
+		while (encoder->GetDistance() > position + 2.0)
+			ControlMotor(0.2);
+		ControlMotor(0.0);
 	}
-}
-
-double GearArm::CvtPosition(double position)
-{
-	if (position < 0.0)
-		return (position + 360.0 < 0.0) ? CvtPosition(position + 360.0) : position + 360.0;
-	else if (position > 360.0)
-		return (position - 360.0 > 360.0) ? CvtPosition(position - 360.0) : position - 360.0;
-	else
-		return position;
 }
 
 inline bool GearArm::EncoderP()

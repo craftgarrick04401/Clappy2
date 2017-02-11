@@ -4,6 +4,7 @@
 #include "Commands/DriveTeleop.h"
 #include "Commands/ToggleGearPCM.h"
 #include "Commands/ToggleRobotDirection.h"
+#include "Commands/ControlGearArm.h"
 #include "Commands/HomeGearArm.h"
 
 OI::OI() {
@@ -13,11 +14,14 @@ OI::OI() {
     
     controlSwitchButton.reset(new JoystickButton(driveStick.get(), 1));
     controlSwitchButton->WhenPressed(new ToggleRobotDirection());
-/*
+
     toggleGearPCMButton.reset(new JoystickButton(gearStick.get(), 1));
     toggleGearPCMButton->WhenPressed(new ToggleGearPCM());
-*/
-    homeGearArmButton.reset(new JoystickButton(gearStick.get(), 2));
+
+    controlGearArmButton.reset(new JoystickButton(gearStick.get(), 2));
+    controlGearArmButton->WhenPressed(new ControlGearArm());
+
+    homeGearArmButton.reset(new JoystickButton(gearStick.get(), 3));
     homeGearArmButton->WhenPressed(new HomeGearArm());
 
 }

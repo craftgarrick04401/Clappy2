@@ -18,7 +18,8 @@ public:
 	void End();
 	void Interrupted();
 private:
-	std::shared_ptr<Joystick> gearStick;
+	bool m_done;
+	double m_position;
 };
 
 #endif
