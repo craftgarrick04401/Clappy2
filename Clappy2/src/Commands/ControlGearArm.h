@@ -11,7 +11,7 @@
  */
 class ControlGearArm : public Command {
 public:
-	ControlGearArm();
+	ControlGearArm(Position position);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -19,7 +19,7 @@ public:
 	void Interrupted();
 private:
 	bool m_done;
-	double m_position;
+	Position m_position;
 };
 
 #endif

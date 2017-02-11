@@ -15,7 +15,8 @@ enum class Position
 {
 	GROUND,
 	RAMP,
-	HOOK
+	HOOK,
+	JOYSTICK
 };
 
 class GearArm : public Subsystem {

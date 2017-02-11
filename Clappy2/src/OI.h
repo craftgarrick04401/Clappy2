@@ -12,6 +12,10 @@ private:
 	std::shared_ptr<JoystickButton> toggleGearPCMButton;
 	std::shared_ptr<JoystickButton> homeGearArmButton;
 	std::shared_ptr<JoystickButton> controlGearArmButton;
+	std::shared_ptr<JoystickButton> button4;
+	std::shared_ptr<JoystickButton> button5;
+	std::shared_ptr<JoystickButton> button6;
+
 
 public:
 	OI();

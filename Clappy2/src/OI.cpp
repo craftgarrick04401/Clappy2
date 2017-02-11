@@ -19,7 +19,16 @@ OI::OI() {
     toggleGearPCMButton->WhenPressed(new ToggleGearPCM());
 
     controlGearArmButton.reset(new JoystickButton(gearStick.get(), 2));
-    controlGearArmButton->WhenPressed(new ControlGearArm());
+    controlGearArmButton->WhenPressed(new ControlGearArm(Position::JOYSTICK));
+
+    button4.reset(new JoystickButton(gearStick.get(), 4));
+    button4->WhenPressed(new ControlGearArm(Position::GROUND));
+
+    button5.reset(new JoystickButton(gearStick.get(), 5));
+    button5->WhenPressed(new ControlGearArm(Position::RAMP));
+
+    button6.reset(new JoystickButton(gearStick.get(), 6));
+    button6->WhenPressed(new ControlGearArm(Position::HOOK));
 
     homeGearArmButton.reset(new JoystickButton(gearStick.get(), 3));
     homeGearArmButton->WhenPressed(new HomeGearArm());

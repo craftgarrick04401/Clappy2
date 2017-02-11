@@ -16,7 +16,7 @@ GearArm::GearArm() : Subsystem("GearArm") {
 }
 
 void GearArm::InitDefaultCommand() {
-	//SetDefaultCommand(new ControlGearArm());
+
 }
 
 void GearArm::Zero()
