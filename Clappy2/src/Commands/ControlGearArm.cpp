@@ -36,9 +36,9 @@ bool ControlGearArm::IsFinished() {
 }
 
 void ControlGearArm::End() {
-	Robot::gearArm->ControlMotor(0.0);
+	Robot::gearArm->ControlGearArmMotor(0.0);
 }
 
 void ControlGearArm::Interrupted() {
-	Robot::gearArm->ControlMotor(0.0);
+	Robot::gearArm->ControlGearArmMotor(0.0);
 }

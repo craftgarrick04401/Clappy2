@@ -14,6 +14,9 @@ std::shared_ptr<Solenoid> RobotMap::gearPCMSolenoid;
 std::shared_ptr<SpeedController> RobotMap::gearArmMotor;
 std::shared_ptr<Encoder> RobotMap::gearArmEncoder;
 std::shared_ptr<DigitalInput> RobotMap::gearArmSwitch;
+std::shared_ptr<SpeedController> RobotMap::shootMotor;
+std::shared_ptr<DigitalInput> RobotMap::shootLowerLimit;
+std::shared_ptr<DigitalInput> RobotMap::shootUpperLimit;
 
 void RobotMap::init() {
 
@@ -52,5 +55,16 @@ void RobotMap::init() {
 
     gearArmSwitch.reset(new DigitalInput(2));
     lw->AddSensor("GearArm", "HomeSwitch", std::static_pointer_cast<DigitalInput>(gearArmSwitch));
+
+    shootMotor.reset(new TalonSRX(6));
+    lw->AddActuator("GearArm", "ShootMotor", std::static_pointer_cast<TalonSRX>(shootMotor));
+
+    shootLowerLimit.reset(new DigitalInput(3));
+    lw->AddSensor("GearArm", "LowerLimit", std::static_pointer_cast<DigitalInput>(shootLowerLimit));
+
+    shootUpperLimit.reset(new DigitalInput(4));
+    lw->AddSensor("GearArm", "UpperLimit", std::static_pointer_cast<DigitalInput>(shootUpperLimit));
+
+
 
 }

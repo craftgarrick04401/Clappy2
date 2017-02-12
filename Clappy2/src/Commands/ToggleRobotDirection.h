@@ -21,7 +21,6 @@
  *
  * @author Garrick Craft
  */
-
 class ToggleRobotDirection: public Command {
 public:
 

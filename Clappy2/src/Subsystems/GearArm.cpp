@@ -4,14 +4,21 @@
 
 GearArm::GearArm() : Subsystem("GearArm") {
 
-	motor = RobotMap::gearArmMotor;
+	gearArmMotor = RobotMap::gearArmMotor;
 	encoder = RobotMap::gearArmEncoder;
 	homeSwitch = RobotMap::gearArmSwitch;
 
+	shootMotor = RobotMap::shootMotor;
+	lowerLimit = RobotMap::shootLowerLimit;
+	upperLimit = RobotMap::shootUpperLimit;
+
 	if (EncoderP())
 		encoder->SetDistancePerPulse(360.0 / 497.0);
+	if (ShootMotorP())
+		shootMotor->Set(0.0);
 
-	ControlMotor(0.0);
+	ControlGearArmMotor(0.0);
+
 
 }
 
@@ -25,18 +32,42 @@ void GearArm::Zero()
 		encoder->Reset();
 }
 
-void GearArm::ControlMotor(double speed)
+void GearArm::ControlGearArmMotor(double speed)
 {
-	if (MotorP())
-		motor->Set(speed);
+	if (GearArmMotorP())
+		gearArmMotor->Set(speed);
+}
+
+void GearArm::ControlShootMotor(ShootPosition position)
+{
+	if (ShootMotorP())
+	{
+		if (position == ShootPosition::DOWN)
+		{
+			while (!GetLowerLimit())
+				shootMotor->Set(1.0);
+		}
+		else
+		{
+			while (!GetUpperLimit())
+				shootMotor->Set(-1.0);
+		}
+	}
 }
 
 bool GearArm::GetHomeSwitch()
 {
-	if (HomeSwitchP())
-		return homeSwitch->Get();
-	else
-		return false;
+	return (HomeSwitchP()) ? homeSwitch->Get() : false;
+}
+
+bool GearArm::GetLowerLimit()
+{
+	return (LowerLimitP()) ? lowerLimit->Get() : false;
+}
+
+bool GearArm::GetUpperLimit()
+{
+	return (UpperLimitP()) ? upperLimit->Get() : false;
 }
 
 double GearArm::GetDegreesD()
@@ -60,10 +91,10 @@ void GearArm::MoveTo(double position)
 	if (EncoderP())
 	{
 		while (encoder->GetDistance() < position - 2.0)
-			ControlMotor(-0.2);
+			ControlGearArmMotor(-0.2);
 		while (encoder->GetDistance() > position + 2.0)
-			ControlMotor(0.2);
-		ControlMotor(0.0);
+			ControlGearArmMotor(0.2);
+		ControlGearArmMotor(0.0);
 	}
 }
 
@@ -72,9 +103,24 @@ inline bool GearArm::EncoderP()
 	return encoder != nullptr;
 }
 
-inline bool GearArm::MotorP()
+inline bool GearArm::GearArmMotorP()
 {
-	return motor != nullptr;
+	return gearArmMotor != nullptr;
+}
+
+inline bool GearArm::ShootMotorP()
+{
+	return shootMotor != nullptr;
+}
+
+inline bool GearArm::LowerLimitP()
+{
+	return lowerLimit != nullptr;
+}
+
+inline bool GearArm::UpperLimitP()
+{
+	return upperLimit != nullptr;
 }
 
 inline bool GearArm::HomeSwitchP()

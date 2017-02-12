@@ -18,10 +18,10 @@ void HomeGearArm::Execute() {
 
 	while (!Robot::gearArm->GetHomeSwitch())
 	{
-		Robot::gearArm->ControlMotor(0.3);
+		Robot::gearArm->ControlGearArmMotor(0.3);
 	}
 
-	Robot::gearArm->ControlMotor(0.0);
+	Robot::gearArm->ControlGearArmMotor(0.0);
 	Robot::gearArm->Zero();
 
 	m_done = true;
@@ -34,10 +34,10 @@ bool HomeGearArm::IsFinished() {
 
 
 void HomeGearArm::End() {
-	Robot::gearArm->ControlMotor(0.0);
+	Robot::gearArm->ControlGearArmMotor(0.0);
 }
 
 
 void HomeGearArm::Interrupted() {
-	Robot::gearArm->ControlMotor(0.0);
+	Robot::gearArm->ControlGearArmMotor(0.0);
 }

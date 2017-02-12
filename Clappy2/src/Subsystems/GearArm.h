@@ -5,11 +5,7 @@
 #include "WPILib.h"
 #include <string>
 
-/**
- *
- *
- * @author Garrick Craft
- */
+
 
 enum class Position
 {
@@ -19,16 +15,35 @@ enum class Position
 	JOYSTICK
 };
 
+enum class ShootPosition
+{
+	DOWN,
+	UP
+};
+
+/**
+ *
+ *
+ * @author Garrick Craft
+ */
 class GearArm : public Subsystem {
 private:
 
-	std::shared_ptr<SpeedController> motor;
+	std::shared_ptr<SpeedController> gearArmMotor;
 	std::shared_ptr<Encoder> encoder;
 	std::shared_ptr<DigitalInput> homeSwitch;
 
+	std::shared_ptr<SpeedController> shootMotor;
+	std::shared_ptr<DigitalInput> upperLimit;
+	std::shared_ptr<DigitalInput> lowerLimit;
+
 	inline bool EncoderP();
-	inline bool MotorP();
+	inline bool GearArmMotorP();
 	inline bool HomeSwitchP();
+
+	inline bool ShootMotorP();
+	inline bool LowerLimitP();
+	inline bool UpperLimitP();
 
 	inline bool Ground();
 	inline bool Ramp();
@@ -48,9 +63,15 @@ public:
 
 	void MoveTo(double position);
 
-	void ControlMotor(double speed);
+	void ControlGearArmMotor(double speed);
+
+	void ControlShootMotor(ShootPosition position);
 
 	bool GetHomeSwitch();
+
+	bool GetLowerLimit();
+
+	bool GetUpperLimit();
 
 	double GetDegreesD();
 

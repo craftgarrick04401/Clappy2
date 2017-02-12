@@ -4,12 +4,6 @@
 #include "WPILib.h"
 #include <string>
 
-/**
- *
- *
- * @author Garrick Craft
- */
-
 enum class Direction
 {
 	FORWARD,
@@ -25,6 +19,11 @@ enum class DriveMotor
 	CENTER
 };
 
+/**
+ *
+ *
+ * @author Garrick Craft
+ */
 class DriveTrain: public Subsystem {
 private:
 

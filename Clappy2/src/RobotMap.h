@@ -23,6 +23,9 @@ public:
 	static std::shared_ptr<SpeedController> gearArmMotor;
 	static std::shared_ptr<Encoder> gearArmEncoder;
 	static std::shared_ptr<DigitalInput> gearArmSwitch;
+	static std::shared_ptr<SpeedController> shootMotor;
+	static std::shared_ptr<DigitalInput> shootLowerLimit;
+	static std::shared_ptr<DigitalInput> shootUpperLimit;
 
 
 	static void init();

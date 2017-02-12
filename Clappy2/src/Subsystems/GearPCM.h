@@ -5,18 +5,17 @@
 #include "WPILib.h"
 #include <string>
 
-/**
- *
- *
- * @author Garrick Craft
- */
-
 enum class PCMStatus
 {
 	OPENED,
 	CLOSED
 };
 
+/**
+ *
+ *
+ * @author Garrick Craft
+ */
 class GearPCM : public Subsystem {
 private:
 

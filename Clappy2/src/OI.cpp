@@ -6,6 +6,7 @@
 #include "Commands/ToggleRobotDirection.h"
 #include "Commands/ControlGearArm.h"
 #include "Commands/HomeGearArm.h"
+#include "Commands/ControlShoot.h"
 
 OI::OI() {
 
@@ -30,12 +31,19 @@ OI::OI() {
     button6.reset(new JoystickButton(gearStick.get(), 6));
     button6->WhenPressed(new ControlGearArm(Position::HOOK));
 
+    button7.reset(new JoystickButton(gearStick.get(), 7));
+    button7->WhenPressed(new ControlShoot(ShootPosition::DOWN));
+
+    button8.reset(new JoystickButton(gearStick.get(), 8));
+    button8->WhenPressed(new ControlShoot(ShootPosition::UP));
+
     homeGearArmButton.reset(new JoystickButton(gearStick.get(), 3));
     homeGearArmButton->WhenPressed(new HomeGearArm());
 
 }
 
-std::shared_ptr<Joystick> OI::getDriveStick() {
+std::shared_ptr<Joystick> OI::getDriveStick()
+{
    return driveStick;
 }
 
