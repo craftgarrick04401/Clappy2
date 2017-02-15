@@ -35,7 +35,9 @@ void GearArm::Zero()
 void GearArm::ControlGearArmMotor(double speed)
 {
 	if (GearArmMotorP())
+	{
 		gearArmMotor->Set(speed);
+	}
 }
 
 void GearArm::ControlShootMotor(ShootPosition position)
@@ -91,9 +93,9 @@ void GearArm::MoveTo(double position)
 	if (EncoderP())
 	{
 		while (encoder->GetDistance() < position - 2.0)
-			ControlGearArmMotor(-0.2);
+			ControlGearArmMotor(-0.5);
 		while (encoder->GetDistance() > position + 2.0)
-			ControlGearArmMotor(0.2);
+			ControlGearArmMotor(0.5);
 		ControlGearArmMotor(0.0);
 	}
 }

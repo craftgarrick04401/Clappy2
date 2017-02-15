@@ -27,6 +27,7 @@ private:
 	double m_Y;
 	double m_Z;
 	double m_scalar;
+	double m_sens;
 
 	inline double Left();
 	inline double Right();

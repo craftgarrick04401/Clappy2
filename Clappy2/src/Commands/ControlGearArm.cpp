@@ -17,13 +17,13 @@ void ControlGearArm::Execute() {
 	switch (m_position)
 	{
 	case Position::GROUND:
-		Robot::gearArm->MoveTo(0.0);
+		Robot::gearArm->MoveTo(90.0);
 		break;
 	case Position::RAMP:
 		Robot::gearArm->MoveTo(45.0);
 		break;
 	case Position::HOOK:
-		Robot::gearArm->MoveTo(90.0);
+		Robot::gearArm->MoveTo(0.0);
 		break;
 	case Position::JOYSTICK:
 		Robot::gearArm->MoveTo(SmartDashboard::GetNumber("gy", Robot::gearArm->GetDegreesD()));

@@ -8,7 +8,8 @@ DriveTeleop::DriveTeleop(): Command() {
 	m_X = 0.0;
 	m_Y = 0.0;
 	m_Z = 0.0;
-	m_scalar = 0.0;
+	m_scalar = 1.0;
+	m_sens = 0.0;
 
 	driveStick = Robot::oi->getDriveStick();
 
@@ -20,10 +21,10 @@ void DriveTeleop::Initialize() {
 
 void DriveTeleop::Execute() {
 
-	m_scalar = -0.5 * driveStick->GetRawAxis(3) + 0.5;
+	m_sens = -0.5 * driveStick->GetRawAxis(3) + 0.5;
 	m_X = driveStick->GetRawAxis(0);
 	m_Y = driveStick->GetRawAxis(1);
-	m_Z = -driveStick->GetRawAxis(2);
+	m_Z = -0.5 * driveStick->GetRawAxis(2);
 
 	if (Robot::driveTrain->GetDirection() == static_cast<int>(Direction::FORWARD))
 	{
@@ -59,7 +60,7 @@ void DriveTeleop::Interrupted() {
 
 inline double DriveTeleop::CalculateSpeed(double scalar, double input)
 {
-	return (2 * scalar / (1 + std::exp(5 * input))) - scalar;
+	return (2 * scalar / (1 + std::exp(m_sens * input))) - scalar;
 }
 
 inline double DriveTeleop::Left()
